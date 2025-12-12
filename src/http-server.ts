@@ -36,6 +36,10 @@ export async function runHttpServer(): Promise<() => Promise<void>> {
     }
   });
 
+  app.get("/", (req: Request, res: Response) => {
+    res.send("MCP Stateless Streamable HTTP Server, try POST /mcp");
+  });
+
   const httpServer = app.listen(SERVER_PORT, (error) => {
     if (error) {
       console.error("Failed to start server:", error);
