@@ -1,11 +1,12 @@
 export interface ITVProduct {
-  brand: string;
+  brand: TBrand;
   model: string;
   inches: number;
   resolution: string;
 }
 
-export async function getTVProducts(brand: string, maxInches: number, minInches: number) {
+type TBrand = "LG" | "Samsung";
+export async function getTVProducts(brand: TBrand | "any", maxInches: number, minInches: number) {
   const tvProducts: ITVProduct[] = [
     {
       brand: "Samsung",
@@ -32,5 +33,6 @@ export async function getTVProducts(brand: string, maxInches: number, minInches:
       resolution: "3840x2160 4K",
     },
   ];
-  return tvProducts.filter((tv) => tv.brand === brand && tv.inches >= minInches && tv.inches <= maxInches);
+
+  return tvProducts.filter((tv) => (brand === "any" || tv.brand === brand) && tv.inches >= minInches && tv.inches <= maxInches);
 }
